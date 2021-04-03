@@ -12,11 +12,11 @@ class Project(models.Model):
     image = models.URLField(default=None, null=True)
 
     def __unicode__(self):
-        return self.name
+        return self.title
 
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
 class Review(models.Model):

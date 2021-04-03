@@ -11,7 +11,7 @@ def home(request):
     query = request.GET.get('title')
     allProjects = None
     if query:
-        allProjects = Project.objects.filter(name__icontains=query)
+        allProjects = Project.objects.filter(title__icontains=query)
     else:
 
         allProjects = Project.objects.all()
@@ -19,12 +19,12 @@ def home(request):
         "projects": allProjects,
     }
 
-    return render( request,'main/index.html', context)
+    return render(request,'main/index.html', context)
 
 
 def details(request, id):
     project = Project.objects.get(id=id)
-    reviews = Review.objects.filter(movie=id).order_by('-comment')
+    reviews = Review.objects.filter(project=id).order_by('-comment')
     
     average1 = reviews.aggregate(Avg("design_rating"))["design_rating__avg"]
     average2 = reviews.aggregate(Avg("usability_rating"))["usability_rating__avg"]
@@ -34,12 +34,14 @@ def details(request, id):
 
     # "usability_rating" , "content_rating"))
     # ["design_rating__avg", "content_rating__avg", "content_rating__avg"]
+    # average = reviews.aggregate(Avg("rating"))["rating__avg"]
+
     if average == None:
         average = 0
     average = round(average, 2)
 
     context = {
-        "Project": project,
+        "project": project,
         "reviews": reviews,
         "average": average,
 
@@ -58,7 +60,7 @@ def add_projects(request):
             data.save()
             return redirect("main:home")
     else:
-        form = MovieForm()
+        form = ProjectForm()
     return render(request, 'main/addprojects.html', {'form': form, "controller":"Add Projects"}) 
 
 
@@ -77,7 +79,7 @@ def edit_projects(request, id):
             data.save()
             return redirect("main:details", id)
     else:
-        form = MovieForm(instance=movie)
+        form = ProjectForm(instance=project)
     return render(request,'main/addprojects.html', {"form": form, "controller":"Edit Project"})
 
 @login_required()
@@ -109,7 +111,7 @@ def add_review(request, id):
     else:
         return redirect("accounts:login")
 
-def edit_review(request, movie_id, review_id):
+def edit_review(request, project_id, review_id):
     if request.user.is_authenticated:
         project = Project.objects.get(id=project_id)
 
@@ -138,7 +140,7 @@ def edit_review(request, movie_id, review_id):
 
 
 @login_required()
-def delete_review(request, movie_id, review_id):
+def delete_review(request, project_id, review_id):
     if request.user.is_authenticated:
         projects = Project.objects.get(id=project_id)
 
@@ -146,7 +148,6 @@ def delete_review(request, movie_id, review_id):
 
         # check id user is logged in is the one who did review
         if request.user == review.user:
-            # give permissions to delete the movie
             review.delete()
 
         return redirect('main:details', project_id)
