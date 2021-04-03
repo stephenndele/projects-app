@@ -22,3 +22,22 @@ def home(request):
     return render( request,'main/index.html', context)
 
 
+def details(request, id):
+    project = Project.objects.get(id=id)
+    reviews = Review.objects.filter(movie=id).order_by('-comment')
+    
+    average = reviews.aggregate(Avg("design_rating"))["design_rating__avg"]
+    # "usability_rating" , "content_rating"))
+    # ["design_rating__avg", "content_rating__avg", "content_rating__avg"]
+    if average == None:
+        average = 0
+    average = round(average, 2)
+
+    context = {
+        "Project": project,
+        "reviews": reviews,
+        "average": average,
+
+    }
+
+    return render( request,'main/details.html', context)
