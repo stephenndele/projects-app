@@ -59,4 +59,4 @@ def add_projects(request):
             return redirect("main:home")
     else:
         form = MovieForm()
-    return render(request, 'main/addmovies.html', {'form': form, "controller":"Add Projects"}) 
+    return render(request, 'main/addprojects.html', {'form': form, "controller":"Add Projects"}) 
