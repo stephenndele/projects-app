@@ -9,3 +9,8 @@ class ProjectForm(forms.ModelForm):
         widgets = {
             'image': forms.TextInput(attrs={'placeholder': 'Add image url.... '}),
         }
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ("comment", "design_rating", "usability_rating", "content_rating")
