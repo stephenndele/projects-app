@@ -61,6 +61,10 @@ def add_projects(request):
         form = MovieForm()
     return render(request, 'main/addprojects.html', {'form': form, "controller":"Add Projects"}) 
 
+
+
+
+
 @login_required()
 def edit_projects(request, id):
     project = Project.objects.get(id=id)
@@ -75,3 +79,75 @@ def edit_projects(request, id):
     else:
         form = MovieForm(instance=movie)
     return render(request,'main/addprojects.html', {"form": form, "controller":"Edit Project"})
+
+@login_required()
+def add_review(request, id):
+    if request.user.is_authenticated:
+        project = Project.objects.get(id=id)
+        if request.method == 'POST':
+            form = ReviewForm(request.POST or None)
+            if form.is_valid():
+                data = form.save(commit=False)
+                data.comment = request.POST['comment']
+                data.design_rating = request.POST['design_rating']
+                data.usability_rating = request.POST['usability_rating']
+                data.content_rating = request.POST['content_rating']
+                data.user = request.user
+                data.project = project
+                data.save()
+                return redirect("main:details", id)
+        else:
+            form = ReviewForm()
+        return render(request, "main/details.html", {'form': form})
+    else:
+        return redirect("accounts:login")
+
+def edit_review(request, movie_id, review_id):
+    if request.user.is_authenticated:
+        project = Project.objects.get(id=project_id)
+
+        review = Review.objects.get(project=project, id=review_id)
+
+        # check id user is logged in is the one who did review
+        if request.user == review.user:
+            # give permissions
+            if request.method == 'POST':
+                form = ReviewForm(request.POST, instance=review)
+                if form.is_valid():
+                    data = form.save(commit=False)
+                    if (data.rating > 10) or (data.rating < 0):
+                        error = "out of allowed range, must be between 0 and 10."
+                        return render(request, 'main/editreview.html', {"error": error, "form": form})
+                    else:
+                        data.save()
+                        return redirect("main:details", project_id)
+            else:
+                form = ReviewForm(instance= review)
+            return render(request, "main/editreview.html", {'form': form})
+        else:
+            return redirect('main:details', project_id)
+    else:
+        return redirect("accounts:login")
+
+
+@login_required()
+def delete_review(request, movie_id, review_id):
+    if request.user.is_authenticated:
+        projects = Project.objects.get(id=project_id)
+
+        review = Review.objects.get(project=project, id=review_id)
+
+        # check id user is logged in is the one who did review
+        if request.user == review.user:
+            # give permissions to delete the movie
+            review.delete()
+
+        return redirect('main:details', project_id)
+            
+    else:
+        return redirect("accounts:login")
+
+
+
+
+
