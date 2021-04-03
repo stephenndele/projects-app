@@ -7,7 +7,7 @@ class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     link = models.URLField()
     description = models.TextField(max_length=6000)
-    release_date = models.DateField()
+    publish_date = models.DateField()
     averageRating = models.FloatField(default=0)
     image = models.URLField(default=None, null=True)
 

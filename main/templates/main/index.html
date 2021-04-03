@@ -5,16 +5,16 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                {% for movie in movies %}
+                {% for Project in projects %}
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body text-center">
-                            <img src="{{movie.image}}" alt="" class="img-fluid" width="80%">
-                            <h3 class="text-center">{{ movie.name }}</h3>
+                            <img src="{{project.image}}" alt="" class="img-fluid" width="80%">
+                            <h3 class="text-center">{{ project.title }}</h3>
                             <div class="text-center">
-                                <i class="text-center">Release Date: {{ movie.release_date}}</i>
+                                <i class="text-center">Publish Date: {{ project.publish_date}}</i>
                             </div>
-                            <a href="{% url 'main:details' movie.id %}">Read More</a>
+                            <a href="{% url 'main:details' project.id %}">Read More</a>
                         </div>
                     </div>
                 </div>
