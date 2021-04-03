@@ -81,6 +81,13 @@ def edit_projects(request, id):
     return render(request,'main/addprojects.html', {"form": form, "controller":"Edit Project"})
 
 @login_required()
+def delete_projects(request, id):
+
+    project = Project.objects.get(id=id)
+    project.delete()
+    return redirect("main:home")
+
+@login_required()
 def add_review(request, id):
     if request.user.is_authenticated:
         project = Project.objects.get(id=id)

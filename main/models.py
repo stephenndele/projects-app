@@ -20,7 +20,7 @@ class Project(models.Model):
 
 
 class Review(models.Model):
-    project = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.TextField(max_length=1000)
     design_rating = models.FloatField(default=0)
