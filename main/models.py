@@ -17,3 +17,15 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Review(models.Model):
+    project = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.TextField(max_length=1000)
+    design_rating = models.FloatField(default=0)
+    usability_rating = models.FloatField(default=0)
+    content_rating = models.FloatField(default=0)
+
+    def __str__(self):
+        return self.user.username

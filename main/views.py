@@ -60,3 +60,18 @@ def add_projects(request):
     else:
         form = MovieForm()
     return render(request, 'main/addprojects.html', {'form': form, "controller":"Add Projects"}) 
+
+@login_required()
+def edit_projects(request, id):
+    project = Project.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = ProjectForm(request.POST or None, instance=project)
+
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.save()
+            return redirect("main:details", id)
+    else:
+        form = MovieForm(instance=movie)
+    return render(request,'main/addprojects.html', {"form": form, "controller":"Edit Project"})
