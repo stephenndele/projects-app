@@ -21,8 +21,8 @@
                 <h5>Rating: {{ average }} / 10</h5>
 
 
-                <a href="{% url 'main:edit_projects' movie.id%}" class="btn btn-warning"> Edit Movie</a>
-                <a href="{% url 'main:delete_movies' movie.id%}" class="btn btn-danger" onclick="return confirm('Are you sure you wanna delete this?')"> Delete Movie</a>
+                <a href="{% url 'main:edit_projects' movie.id%}" class="btn btn-warning"> Edit Project</a>
+                <a href="{% url 'main:delete_projects' movie.id%}" class="btn btn-danger" onclick="return confirm('Are you sure you wanna delete this?')"> Delete Project</a>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
     <br>
     <div class="card">
         <div class="card-body">
-            <h3 class="text-center">Movie Reviews</h3>
+            <h3 class="text-center">Project Reviews</h3>
             <form action="{% url 'main:add_review' movie.id %}" method="POST">
                 {% csrf_token %}
                 <label for="comment">Review</label>
@@ -70,7 +70,7 @@
                     <!-- <a href="{% url 'main:edit_review' movie.id review.id %}">Edit Review</a> -->
                 
                 <br>
-                <a href="{% url 'main:delete_review' movie.id review.id %}" onclick="return confirm('Are you sure you wanna delete this?')">Delete</a>
+                <a href="{% url 'main:delete_review' project.id review.id %}" onclick="return confirm('Are you sure you wanna delete this?')">Delete</a>
 
                 <br>
                {% endfor %}

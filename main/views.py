@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
-# from .forms import *
+from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 # Create your views here.
@@ -46,3 +46,17 @@ def details(request, id):
     }
 
     return render( request,'main/details.html', context)
+
+
+@login_required()
+def add_projects(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST or None)
+
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.save()
+            return redirect("main:home")
+    else:
+        form = MovieForm()
+    return render(request, 'main/addmovies.html', {'form': form, "controller":"Add Projects"}) 
