@@ -26,7 +26,12 @@ def details(request, id):
     project = Project.objects.get(id=id)
     reviews = Review.objects.filter(movie=id).order_by('-comment')
     
-    average = reviews.aggregate(Avg("design_rating"))["design_rating__avg"]
+    average1 = reviews.aggregate(Avg("design_rating"))["design_rating__avg"]
+    average2 = reviews.aggregate(Avg("usability_rating"))["usability_rating__avg"]
+    average3 = reviews.aggregate(Avg("content_rating"))["content_rating__avg"]
+
+    average = average1 + average2 + average3
+
     # "usability_rating" , "content_rating"))
     # ["design_rating__avg", "content_rating__avg", "content_rating__avg"]
     if average == None:

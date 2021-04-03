@@ -13,15 +13,15 @@
             </div>
             <div class="col-md-8">
                 <h3 class="text-center">
-                    {{movie.name}}
+                    {{project.title}}
                 </h3>
-                <p>{{movie.description}}</p>
-                <h5>Director: {{movie.director}}</h5>
-                <h5>Cast: {{movie.cast}}</h5>
+                <p> Description: {{project.description}}</p>
+                <h5>Project Url: {{project.link}}</h5> 
+                <h5>Done by: {{project.user}}</h5>
                 <h5>Rating: {{ average }} / 10</h5>
 
 
-                <a href="{% url 'main:edit_movies' movie.id%}" class="btn btn-warning"> Edit Movie</a>
+                <a href="{% url 'main:edit_projects' movie.id%}" class="btn btn-warning"> Edit Movie</a>
                 <a href="{% url 'main:delete_movies' movie.id%}" class="btn btn-danger" onclick="return confirm('Are you sure you wanna delete this?')"> Delete Movie</a>
             </div>
         </div>
