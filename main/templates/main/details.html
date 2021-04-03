@@ -1,0 +1,83 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <br>
+    <div class="card">
+        <div class="card-body">
+
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{movie.image}}" alt="{{movie.name}}" class="img-fluid" width="80%">
+            </div>
+            <div class="col-md-8">
+                <h3 class="text-center">
+                    {{movie.name}}
+                </h3>
+                <p>{{movie.description}}</p>
+                <h5>Director: {{movie.director}}</h5>
+                <h5>Cast: {{movie.cast}}</h5>
+                <h5>Rating: {{ average }} / 10</h5>
+
+
+                <a href="{% url 'main:edit_movies' movie.id%}" class="btn btn-warning"> Edit Movie</a>
+                <a href="{% url 'main:delete_movies' movie.id%}" class="btn btn-danger" onclick="return confirm('Are you sure you wanna delete this?')"> Delete Movie</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h3 class="text-center">Movie Reviews</h3>
+            <form action="{% url 'main:add_review' movie.id %}" method="POST">
+                {% csrf_token %}
+                <label for="comment">Review</label>
+                <textarea name="comment" id="comment" cols="30" rows="5" class="form-control"></textarea>
+                <h4 class="text-center">Ratings</h4>
+                <label for="rating">Design</label>
+                <input type="rating"  id="rangeInput" name="rating" min="0" max="10" value="0" step="0.1" 
+                oninput="amount.value=rangeInput.value">
+                <output name="amount" id="amount" for="rangeInput" >0</output>
+
+                <label for="rating">Usability</label>
+                <input type="rating"  id="rangeInput" name="rating" min="0" max="10" value="0" step="0.1" 
+                oninput="amount.value=rangeInput.value">
+                <output name="amount" id="amount" for="rangeInput" >0</output>
+
+                <label for="rating">Content</label>
+                <input type="rating"  id="rangeInput" name="rating" min="0" max="10" value="0" step="0.1" 
+                oninput="amount.value=rangeInput.value">
+                <output name="amount" id="amount" for="rangeInput" >0</output>
+                
+                <input type="submit" class="btn btn-danger" value="Save Review">
+            </form>
+        </div>
+    </div>
+    <div class="card" style="background-color: grey">
+        <div class="card-body">
+            <h3 class="text-center">Reviews</h3>
+           <ul>
+               {% for review in reviews %}
+               <li>Review By: {{ review.user}}</li>
+               <li>Comment: {{ review.comment}} </li>
+                <li> Design Rating: {{ review.design_rating}}</li>
+                <li> Usability Rating: {{ review.usability_rating}}</li>
+                <li> Content Rating: {{ review.content_rating}}</li>
+                <a href="{% url 'main:edit_review' movie.id review.id %}" class="btn btn-warning"> Edit Review</a>
+
+                    <!-- <a href="{% url 'main:edit_review' movie.id review.id %}">Edit Review</a> -->
+                
+                <br>
+                <a href="{% url 'main:delete_review' movie.id review.id %}" onclick="return confirm('Are you sure you wanna delete this?')">Delete</a>
+
+                <br>
+               {% endfor %}
+           </ul> 
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
