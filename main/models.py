@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Project(models.Model):
     title = models.CharField(max_length=250)
-    user = models.ForeignKey(User, on_delete=CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     link = models.URLField()
     description = models.TextField(max_length=6000)
     release_date = models.DateField()
