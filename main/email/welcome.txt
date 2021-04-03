@@ -1,0 +1,4 @@
+Hello {{name}}
+
+Welcome to Projects Application. Here you showcase your project for others to give reviews and rating.
+
