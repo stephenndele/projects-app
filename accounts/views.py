@@ -25,3 +25,26 @@ def register(request):
         form = RegistrationForm()
 
     return render(request, "accounts/register.html", {"form": form})
+
+
+def login_user(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+
+    #   check credentials  
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            if user.is_active:
+
+                login(request, user)
+                return redirect('main:home')
+            else:
+                return render(request, 'accounts/login.html', {"error": "Your accout id is not active"})
+
+        else:
+            return render(request, 'accounts/login.html', {"error": "Invalid username or password"})
+
+    return render(request, 'accounts/login.html')
