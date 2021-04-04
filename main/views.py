@@ -162,10 +162,22 @@ def delete_review(request, project_id, review_id):
 
 
 def userpage(request):
-	user_form = UserCreationForm(instance=request.user)
+	if request.method == "POST":
+		user_form = UserForm(request.POST, instance=request.user)
+		profile_form = ProfileForm(request.POST, instance=request.user.profile)
+		if user_form.is_valid():
+		    user_form.save()
+		    messages.success(request,('Your profile was successfully updated!'))
+		elif profile_form.is_valid():
+		    profile_form.save()
+		    messages.success(request,('Your Projects were successfully updated!'))
+		else:
+		    messages.error(request,('Unable to complete request'))
+		return redirect ("main:userpage")
+	user_form = UserForm(instance=request.user)
 	profile_form = ProfileForm(instance=request.user.profile)
-	return render(request=request, template_name="main/user.html", context={"user":request.user, "user_form":user_form, "profile_form":profile_form })
-
+	return render(request = request, template_name ="main/user.html", context = {"user":request.user, 
+		"user_form": user_form, "profile_form": profile_form })
 
 
 
