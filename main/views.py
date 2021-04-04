@@ -4,6 +4,7 @@ from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
+from .forms import ProfileForm
 # Create your views here.
 
 
