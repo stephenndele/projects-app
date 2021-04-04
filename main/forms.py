@@ -1,6 +1,8 @@
 from django import forms
 from .models import *
 from .models import Profile 
+from django.contrib.auth.forms import UserCreationForm
+
 
 class ProjectForm(forms.ModelForm):
     class Meta:
@@ -26,3 +28,8 @@ class ProfileForm(forms.ModelForm):
 	class Meta: 
 		model = Profile
 		fields = ('user', 'bio', 'image', 'projects') 
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username','first_name', 'last_name', 'email')

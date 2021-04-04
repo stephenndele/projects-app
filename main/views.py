@@ -4,7 +4,9 @@ from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
-from .forms import ProfileForm
+from .forms import ProfileForm, UserForm
+from django.contrib.auth.forms import UserCreationForm
+
 # Create your views here.
 
 
@@ -160,7 +162,7 @@ def delete_review(request, project_id, review_id):
 
 
 def userpage(request):
-	user_form = UserForm(instance=request.user)
+	user_form = UserCreationForm(instance=request.user)
 	profile_form = ProfileForm(instance=request.user.profile)
 	return render(request=request, template_name="main/user.html", context={"user":request.user, "user_form":user_form, "profile_form":profile_form })
 
