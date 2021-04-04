@@ -1,5 +1,6 @@
 from django import forms
 from .models import *
+from .models import Profile 
 
 class ProjectForm(forms.ModelForm):
     class Meta:
@@ -19,3 +20,9 @@ class ReviewForm(forms.ModelForm):
 class NewsLetterForm(forms.Form):
     your_name = forms.CharField(label='First Name',max_length=30)
     email = forms.EmailField(label='Email')
+
+
+class ProfileForm(forms.ModelForm):
+	class Meta: 
+		model = Profile
+		fields = ('user', 'bio', 'image', 'projects') 
