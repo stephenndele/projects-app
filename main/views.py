@@ -9,9 +9,10 @@ from django.db.models import Avg
 
 def home(request):
     query = request.GET.get('title')
+    
     allProjects = None
     if query:
-        allProjects = Project.objects.filter(title__icontains=query)
+        allProjects = Project.objects.filter(name__icontains=query)
     else:
 
         allProjects = Project.objects.all()
@@ -26,15 +27,15 @@ def details(request, id):
     project = Project.objects.get(id=id)
     reviews = Review.objects.filter(project=id).order_by('-comment')
     
-    average1 = reviews.aggregate(Avg("design_rating"))["design_rating__avg"]
-    average2 = reviews.aggregate(Avg("usability_rating"))["usability_rating__avg"]
-    average3 = reviews.aggregate(Avg("content_rating"))["content_rating__avg"]
+    # average1 = reviews.aggregate(Avg("design_rating"))["design_rating__avg"]
+    # average2 = reviews.aggregate(Avg("usability_rating"))["usability_rating__avg"]
+    # average3 = reviews.aggregate(Avg("content_rating"))["content_rating__avg"]
 
-    average = average1 + average2 + average3
+    # average = average1 + average2 + average3
 
     # "usability_rating" , "content_rating"))
     # ["design_rating__avg", "content_rating__avg", "content_rating__avg"]
-    # average = reviews.aggregate(Avg("rating"))["rating__avg"]
+    average = reviews.aggregate(Avg("design_rating"))["design_rating__avg"]
 
     if average == None:
         average = 0
@@ -57,6 +58,7 @@ def add_projects(request):
 
         if form.is_valid():
             data = form.save(commit=False)
+            # data.user = request.user.project
             data.save()
             return redirect("main:home")
     else:
