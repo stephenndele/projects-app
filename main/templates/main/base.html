@@ -43,7 +43,7 @@
           <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-outline-primary" href="/user">{{user.username|title}}</a>
+          <a class="btn btn-outline-primary" href="/user">{{user.username|title}} Profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'accounts:logout' %}">Log out </a>
@@ -53,7 +53,7 @@
         {% if user.is_authenticated %}
         <li class="nav-item dropdown"> 
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"  aria-expanded="false">
-           {{user.username}}
+           <!-- {{user.username}} -->
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             
