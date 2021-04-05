@@ -165,7 +165,7 @@ def delete_review(request, project_id, review_id):
 def userpage(request):
 	if request.method == "POST":
 		user_form = UserForm(request.POST, instance=request.user)
-		profile_form = ProfileForm(request.POST, instance=request.user.profile)
+		profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
 		if user_form.is_valid():
 		    user_form.save()
 		    messages.success(request,('Your profile was successfully updated!'))

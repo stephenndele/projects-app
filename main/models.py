@@ -42,9 +42,8 @@ class Profile(models.Model):
     image = models.ImageField(
             null=True, 
             blank=True, 
-            height_field='height_field', 
-            width_field='width_field',
             upload_to = "gallery/",
+            default = "ndele.jpeg"
     )
     # projects = models.ManyToManyField(Project)
 

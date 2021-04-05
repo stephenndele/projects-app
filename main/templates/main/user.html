@@ -11,7 +11,7 @@
 	    <div class="row">
 	    	<div class="col-sm-12 col-md-12 col-lg-3 pb-4">
 		    	<div class="card p-4">
-					<img class="rounded-circle z-depth-2 account-img" src="{{ user.profile.image }}">
+					<img  src="{{ user.profile.image.url }}">
 
 
 			    	<h4 class="card-title font-weight-bold text-center">Hello, {{ user.username|title }}</h4>
@@ -69,7 +69,7 @@
 				  </button>
 			  </div>
 			  <div class="modal-body">
-				  <form method="post">
+				  <form method="post" novalidate enctype="multipart/form-data">
 						{% csrf_token %}
 						{% bootstrap_form user_form %}
 						{% bootstrap_form  profile_form %}
