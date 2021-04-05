@@ -6,12 +6,13 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 from .forms import ProfileForm, UserForm
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
 # Create your views here.
 
 
 def home(request):
-    query = request.GET.get('title')
+    query = request.GET.get('title')    
     
     allProjects = None
     if query:
@@ -61,7 +62,7 @@ def add_projects(request):
 
         if form.is_valid():
             data = form.save(commit=False)
-            # data.user = request.user.project
+            data.user = request.user.profile
             data.save()
             return redirect("main:home")
     else:

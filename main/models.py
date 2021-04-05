@@ -9,7 +9,7 @@ from django.dispatch import receiver
 
 class Project(models.Model):
     title = models.CharField(max_length=250)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name= 'projects')
     link = models.URLField()
     description = models.TextField(max_length=6000)
     publish_date = models.DateField()
@@ -37,7 +37,7 @@ class Review(models.Model):
 
 
 class Profile(models.Model):  
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     bio = models.CharField(max_length=1000, blank=True, null=True)
     image = models.ImageField(
             null=True, 
@@ -45,7 +45,7 @@ class Profile(models.Model):
             height_field='height_field', 
             width_field='width_field'
     )
-    projects = models.ManyToManyField(Project)
+    # projects = models.ManyToManyField(Project)
 
     @receiver(post_save, sender=User) #add this
     def create_user_profile(sender, instance, created, **kwargs):

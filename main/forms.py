@@ -27,7 +27,8 @@ class NewsLetterForm(forms.Form):
 class ProfileForm(forms.ModelForm):
 	class Meta: 
 		model = Profile
-		fields = ('user', 'bio', 'image', 'projects') 
+		fields = ('user', 'bio', 'image')
+        # 'projects') 
 
 class UserForm(forms.ModelForm):
     class Meta:

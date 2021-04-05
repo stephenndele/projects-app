@@ -1,8 +1,9 @@
 {% extends "main/base.html" %}
+{% load bootstrap4 %}
 
-	{% block content %}
+{% block content %}
 
-	{% load crispy_forms_tags %}  
+{% load crispy_forms_tags %}  
 
 	<!--User-->
 	<br><br>
@@ -10,6 +11,9 @@
 	    <div class="row">
 	    	<div class="col-sm-12 col-md-12 col-lg-3 pb-4">
 		    	<div class="card p-4">
+					<img class="rounded-circle z-depth-2 account-img" src="{{ user.profile.image }}">
+
+
 			    	<h4 class="card-title font-weight-bold text-center">Hello, {{ user.username|title }}</h4>
 			      	<hr>
 			    	<div class="card-text">
@@ -18,9 +22,10 @@
 			    		<p class="text-muted mb-0" style="font-size: 12px">Name:</p>
 				  		<p>{{ user.first_name }} {{ user.last_name }}</p>
 				  		<p class="text-muted mb-0" style="font-size: 12px">Email:</p>
-				  		<p>{{ user.email }} </p>
+						  <p>{{ user.email }} </p>
+						  <p>{{user.profile.bio}}</p>
 						<div class="text-right">
-							<button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#profileModal">Edit Profile</button>
+							<button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-md">Edit Profile</button>
 						</div>
 			        </div>
 		    	</div>
@@ -52,8 +57,10 @@
 	</div>
     
     <!--Edit user modal-->
-	<div class="modal fade" tabindex="-1" id="profileModal" role="dialog">
-		<div class="modal-dialog" role="document">
+	<div class="modal fade bd-example-modal-md" tabindex="-1"  role="dialog" aria-labelledby="myLargeModalLabel"
+	aria-hidden="true">
+
+		<div class="modal-dialog modal-md" >
 		  <div class="modal-content">
 				<div class="modal-header">
 				  <h5 class="modal-title">Edit Profile</h5>
@@ -62,9 +69,11 @@
 				  </button>
 			  </div>
 			  <div class="modal-body">
-				  <form method="post" class="uniForm">
+				  <form method="post">
 						{% csrf_token %}
-						{{ user_form|crispy }}
+						{% bootstrap_form user_form %}
+						{% bootstrap_form  profile_form %}
+
 			  </div>
 				<div class="modal-footer">
 					  <button type="submit" class="btn btn-primary">Save changes</button>
@@ -76,7 +85,7 @@
   </div>
 
   <!--Projects modal-->
-	<div class="modal fade" tabindex="-1" id="projecttModal" role="dialog">
+	<!-- <div class="modal fade" tabindex="-1" id="projecttModal" role="dialog">
 		<div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      	<div class="modal-header">
@@ -88,7 +97,6 @@
 		      	<div class="modal-body">
 			        <form method="post" class="uniForm">
 			        	{% csrf_token %}
-					  	{{ profile_form|crispy }}
 					  	<span class="text-muted" style="font-size:12px">Hold down "Control", or "Command" on a Mac, to select more than one.</span>
 		      	</div>
 		      	<div class="modal-footer">
@@ -97,5 +105,5 @@
 		        	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 		      	</div>
 		    </div>
-	  	</div>
+	  	</div> -->
 	{% endblock %}
