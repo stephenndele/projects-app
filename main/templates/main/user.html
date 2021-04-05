@@ -1,8 +1,8 @@
 {% extends "main/base.html" %}
 
-{% block content %}
+	{% block content %}
 
-{% load crispy_forms_tags %}  
+	{% load crispy_forms_tags %}  
 
 	<!--User-->
 	<br><br>
@@ -31,7 +31,7 @@
 		    			<h2 class="font-weight-bold pt-4">Projects</h2>
 		    		</div>
 		    		<div class="col-6 my-auto text-right">
-		    			<button type="button" class="btn btn-primary font-weight-bold" style="border-radius: 50%" data-toggle="modal" data-target="#wishlistModal">+</button>
+		    			<button type="button" class="btn btn-primary font-weight-bold" style="border-radius: 50%" data-toggle="modal" data-target="#projectstModal">+</button>
 		    		</div>
 		    	</div>
 		      	<br>
@@ -39,7 +39,7 @@
 			      	{% for p in user.profile.projects.all %}
 				    	<div class="col-sm-12 col-md-6 col-lg-4 pb-4">
 			                <div class="h-100">
-			                	<img src="{{ p.product_image.url }}" class="card-img-top" alt="{{ p.product_name }}" style="width: auto; height: 225px; object-fit: scale-down;">
+			                	<img src="{{ p.project_image.url }}" class="card-img-top" alt="{{ p.project_title }}" style="width: auto; height: 225px; object-fit: scale-down;">
 			                	<div class="card-body">
 			                  		<h5 class="card-title">{{ p.title }}</h5>
 			                    	<p class="card-text text-muted" style="font-size:12px">{{ p.description }}</p>
