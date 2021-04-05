@@ -43,7 +43,8 @@ class Profile(models.Model):
             null=True, 
             blank=True, 
             height_field='height_field', 
-            width_field='width_field'
+            width_field='width_field',
+            upload_to = "gallery/",
     )
     # projects = models.ManyToManyField(Project)
 
