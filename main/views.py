@@ -58,7 +58,7 @@ def details(request, id):
 @login_required()
 def add_projects(request):
     if request.method == 'POST':
-        form = ProjectForm(request.POST or None)
+        form = ProjectForm(request.POST or None, request.FILES,)
 
         if form.is_valid():
             data = form.save(commit=False)
