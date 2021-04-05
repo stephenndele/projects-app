@@ -16,7 +16,7 @@ def home(request):
     
     allProjects = None
     if query:
-        allProjects = Project.objects.filter(name__icontains=query)
+        allProjects = Project.objects.filter(title__icontains=query)
     else:
 
         allProjects = Project.objects.all()
