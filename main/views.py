@@ -162,7 +162,7 @@ def delete_review(request, project_id, review_id):
         return redirect("accounts:login")
 
 
-def userpage(request):
+def userpage(request,):
 	if request.method == "POST":
 		user_form = UserForm(request.POST, instance=request.user)
 		profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
@@ -174,7 +174,7 @@ def userpage(request):
 		    messages.success(request,('Your Projects were successfully updated!'))
 		else:
 		    messages.error(request,('Unable to complete request'))
-		return redirect ("main:userpage")
+		# return redirect ("main:userpage")
 	user_form = UserForm(instance=request.user)
 	profile_form = ProfileForm(instance=request.user.profile)
 	return render(request = request, template_name ="main/user.html", context = {"user":request.user, 
