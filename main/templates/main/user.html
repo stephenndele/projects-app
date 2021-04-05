@@ -62,7 +62,7 @@
 				  </button>
 			  </div>
 			  <div class="modal-body">
-				  <form method="post">
+				  <form method="post" class="uniForm">
 						{% csrf_token %}
 						{{ user_form|crispy }}
 			  </div>
@@ -86,7 +86,7 @@
 			        </button>
 		      	</div>
 		      	<div class="modal-body">
-			        <form method="post">
+			        <form method="post" class="uniForm">
 			        	{% csrf_token %}
 					  	{{ profile_form|crispy }}
 					  	<span class="text-muted" style="font-size:12px">Hold down "Control", or "Command" on a Mac, to select more than one.</span>
