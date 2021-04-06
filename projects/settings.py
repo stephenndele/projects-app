@@ -45,8 +45,18 @@ INSTALLED_APPS = [
     'accounts',
     'crispy_forms',
     'bootstrap4',
+    'cloudinary'
 
 ]
+
+
+#add config 
+cloudinary.config(
+  cloud_name = config('CLOUD_NAME'),
+  api_key = config('API_KEY'),
+  api_secret = config('API_SECRET'),
+  secure = True
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
