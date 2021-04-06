@@ -162,10 +162,9 @@ def add_review(request, id):
                 return redirect("main:details", id)
         else:
             form = ReviewForm()
-        return render(request, "main/details.html", {'form': form})
+        return render(request, "main/details.html", {'form': form, "project":project})
     else:
         return redirect("accounts:login")
-
 def edit_review(request, project_id, review_id):
     if request.user.is_authenticated:
         project = Project.objects.get(id=project_id)
