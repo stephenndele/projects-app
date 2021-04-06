@@ -16,8 +16,8 @@
                     {{project.title}}
                 </h3>
                 <p> Description: {{project.description}}</p>
-                <button type="button"> <a href='{{ project.link }}' class ="btn btn-success">Project Link</a></button>
-                <h5>Done by: {{project.user}}</h5>
+                <button type="button"> <a href='{{ project.link }}' class ="btn btn-primary">Project Link</a></button>
+                <h5>Done by: {{project.user.user.username}}</h5>
                 <h5>Rating: {{ average }} / 10</h5>
 
 
@@ -76,7 +76,30 @@
            </ul> 
         </div>
     </div>
+    
 </div>
 
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-md-3">
+        <div class="col-md-6 d-flex flex-row mx-auto" style="margin-top:20%">
+            {% for rating in project.ratings.all %}
+            {% if forloop.counter is post.ratings.all.count %}
+            <div id="design">{{ rating.design_average}}<br>
+                <span class="rates">design</span>
+            </div>
+            <div id="usable" class="mx-auto">{{ rating.usability_average }}<br>
+                <span class="rates">usability</span>
+            </div>
+            <div id="contente">{{ rating.content_average }}<br>
+                <span class="rates">content</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        </div>
+    </div>
+</div>
+ -->
 
 {% endblock %}

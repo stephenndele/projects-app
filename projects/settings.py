@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'main',
     'accounts',
     'crispy_forms',
+    'bootstrap4',
+
 ]
 
 MIDDLEWARE = [
@@ -164,6 +166,7 @@ STATICFILES_DIRS = (
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+CRISPY_TEMPLATE_PACK = 'uni_form'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

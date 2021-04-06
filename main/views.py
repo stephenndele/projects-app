@@ -4,15 +4,19 @@ from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
+from .forms import ProfileForm, UserForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+
 # Create your views here.
 
 
 def home(request):
-    query = request.GET.get('title')
+    query = request.GET.get('title')    
     
     allProjects = None
     if query:
-        allProjects = Project.objects.filter(name__icontains=query)
+        allProjects = Project.objects.filter(title__icontains=query)
     else:
 
         allProjects = Project.objects.all()
@@ -51,14 +55,63 @@ def details(request, id):
     return render( request,'main/details.html', context)
 
 
+
+
+
+# def details(request, id):
+#     project = Project.objects.get(id=id)
+#     ratings = Rating.objects.filter(user=request.user, project=project).first()
+#     rating_status = None
+#     if ratings is None:
+#         rating_status = False
+#     else:
+#         rating_status = True
+#     if request.method == 'POST':
+#         form = RatingsForm(request.POST)
+#         if form.is_valid():
+#             rate = form.save(commit=False)
+#             rate.user = request.user
+#             rate.project = project
+#             rate.save()
+#             project_ratings = Rating.objects.filter(project=project)
+
+#             design_ratings = [d.design for d in project_ratings]
+#             design_average = sum(design_ratings) / len(design_ratings)
+
+#             usability_ratings = [us.usability for us in project_ratings]
+#             usability_average = sum(usability_ratings) / len(usability_ratings)
+
+#             content_ratings = [content.content for content in project_ratings]
+#             content_average = sum(content_ratings) / len(content_ratings)
+
+#             score = (design_average + usability_average + content_average) / 3
+#             print(score)
+#             rate.design_average = round(design_average, 2)
+#             rate.usability_average = round(usability_average, 2)
+#             rate.content_average = round(content_average, 2)
+#             rate.score = round(score, 2)
+#             rate.save()
+#             return HttpResponseRedirect(request.path_info)
+#     else:
+#         form = RatingsForm()
+#     params = {
+#         'project': project,
+#         'rating_form': form,
+#         'rating_status': rating_status
+
+#     }
+#     return render(request, 'main/details.html', params)
+
+
+
 @login_required()
 def add_projects(request):
     if request.method == 'POST':
-        form = ProjectForm(request.POST or None)
+        form = ProjectForm(request.POST or None, request.FILES,)
 
         if form.is_valid():
             data = form.save(commit=False)
-            # data.user = request.user.project
+            data.user = request.user.profile
             data.save()
             return redirect("main:home")
     else:
@@ -126,7 +179,7 @@ def edit_review(request, project_id, review_id):
                 form = ReviewForm(request.POST, instance=review)
                 if form.is_valid():
                     data = form.save(commit=False)
-                    if (data.rating > 10) or (data.rating < 0):
+                    if (data.degin_rating > 10) or (data.design_rating < 0):
                         error = "out of allowed range, must be between 0 and 10."
                         return render(request, 'main/editreview.html', {"error": error, "form": form})
                     else:
@@ -158,6 +211,23 @@ def delete_review(request, project_id, review_id):
         return redirect("accounts:login")
 
 
+def userpage(request,):
+	if request.method == "POST":
+		user_form = UserForm(request.POST, instance=request.user)
+		profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+		if user_form.is_valid():
+		    user_form.save()
+		    messages.success(request,('Your profile was successfully updated!'))
+		elif profile_form.is_valid():
+		    profile_form.save()
+		    messages.success(request,('Your Projects were successfully updated!'))
+		else:
+		    messages.error(request,('Unable to complete request'))
+		# return redirect ("main:userpage")
+	user_form = UserForm(instance=request.user)
+	profile_form = ProfileForm(instance=request.user.profile)
+	return render(request = request, template_name ="main/user.html", context = {"user":request.user, 
+		"user_form": user_form, "profile_form": profile_form })
 
 
 
