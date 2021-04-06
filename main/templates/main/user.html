@@ -46,8 +46,9 @@
 			                <div class="h-100">
 			                	<img src="{{ p.project_image.url }}" class="card-img-top" alt="{{ p.project_title }}" style="width: auto; height: 225px; object-fit: scale-down;">
 			                	<div class="card-body">
-			                  		<h5 class="card-title">{{ p.title }}</h5>
-			                    	<p class="card-text text-muted" style="font-size:12px">{{ p.description }}</p>
+			                  		<h5 class="card-title">Title: {{ p.title }}</h5>
+									<p class="card-text " style="font-size:12px">Description: {{ p.description }}</p>
+									<button type="button"> <a href='{{ p.link }}' class ="btn btn-success">Project Link</a></button>
 			                	</div>
 			              	</div>
 			            </div>
