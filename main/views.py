@@ -31,16 +31,16 @@ def details(request, id):
     project = Project.objects.get(id=id)
     reviews = Review.objects.filter(project=id).order_by('-comment')
     
-    # average1 = reviews.aggregate(Avg("design_rating"))["design_rating__avg"]
-    # average2 = reviews.aggregate(Avg("usability_rating"))["usability_rating__avg"]
-    # average3 = reviews.aggregate(Avg("content_rating"))["content_rating__avg"]
+    average1 = reviews.aggregate(Avg("design_rating"))["design_rating__avg"]
+    average2 = reviews.aggregate(Avg("usability_rating"))["usability_rating__avg"]
+    average3 = reviews.aggregate(Avg("content_rating"))["content_rating__avg"]
 
-    # average = average1 + average2 + average3
+    average = (average1 + average2 + average3) / 3
 
     # "usability_rating" , "content_rating"))
     # ["design_rating__avg", "content_rating__avg", "content_rating__avg"]
-    average = reviews.aggregate(Avg("design_rating"))["design_rating__avg"]
-
+    # average = reviews.aggregate(Avg("design_rating"))["design_rating__avg"]
+    
     if average == None:
         average = 0
     average = round(average, 2)
@@ -150,13 +150,14 @@ def add_review(request, id):
         project = Project.objects.get(id=id)
         if request.method == 'POST':
             form = ReviewForm(request.POST or None)
+            print(form.errors)
             if form.is_valid():
                 data = form.save(commit=False)
-                data.comment = request.POST['comment']
-                data.design_rating = request.POST['design_rating']
-                data.usability_rating = request.POST['usability_rating']
-                data.content_rating = request.POST['content_rating']
-                data.user = request.user
+                # data.comment = request.POST['comment']
+                # data.design_rating = request.POST['design_rating']
+                # data.usability_rating = request.POST['usability_rating']
+                # data.content_rating = request.POST['content_rating']
+                data.user = request.user.profile
                 data.project = project
                 data.save()
                 return redirect("main:details", id)

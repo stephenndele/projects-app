@@ -1,6 +1,6 @@
 from django import forms
 from .models import *
-from .models import Profile, Project, Rating
+from .models import Profile, Project
 from django.contrib.auth.forms import UserCreationForm
 
 
@@ -17,7 +17,6 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ("comment", "design_rating", "usability_rating", "content_rating")
-        # "usability_rating", "content_rating")
 
 class NewsLetterForm(forms.Form):
     your_name = forms.CharField(label='First Name',max_length=30)
@@ -36,7 +35,4 @@ class UserForm(forms.ModelForm):
         fields = ('username','first_name', 'last_name', 'email')
 
 
-class RatingsForm(forms.ModelForm):
-    class Meta:
-        model = Rating
-        fields = ['design', 'usability', 'content']
+

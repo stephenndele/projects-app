@@ -33,7 +33,7 @@
             <h3 class="text-center">Project Reviews</h3>
             <form action="{% url 'main:add_review' project.id %}" method="POST">
                 {% csrf_token %}
-                <label for="comment">Review</label>
+                <label for="comment">Comment</label>
                 <textarea name="comment" id="comment" cols="30" rows="5" class="form-control"></textarea>
                 <h4 class="text-center">Ratings</h4>
                 <label for="rating">Design</label>
@@ -60,7 +60,7 @@
             <h3 class="text-center">Reviews</h3>
            <ul>
                {% for review in reviews %}
-               <li>Review By: {{ review.user}}</li>
+               <li>Review By: {{ review.user.user.username}}</li>
                <li>Comment: {{ review.comment}} </li>
                 <li> Design Rating: {{ review.design_rating}}</li>
                 <li> Usability Rating: {{ review.usability_rating}}</li>
