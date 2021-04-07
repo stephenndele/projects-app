@@ -151,6 +151,7 @@ def add_review(request, id):
         if request.method == 'POST':
             form = ReviewForm(request.POST or None)
             print(form.errors)
+            print(form)
             if form.is_valid():
                 data = form.save(commit=False)
                 # data.comment = request.POST['comment']
