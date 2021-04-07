@@ -73,8 +73,8 @@ Open the application on your browser `127.0.0.1:8000`.
   
  ### Api Endpoints
  *
- * http://127.0.0.1:8000/api/project/
- * http://127.0.0.1:8000/api/profile/
+ * https://projects-awwards.herokuapp.com/api/project/
+ * https://projects-awwards.herokuapp.com/api/profile/
  
  
 ## Technology used  
