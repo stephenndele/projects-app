@@ -14,5 +14,6 @@ urlpatterns = [
     path('deletereview/<int:project_id>/<int:review_id>/', views.delete_review, name='delete_review'),
     path("user/", views.userpage, name = "userpage"),
     path('api/project/', views.ProjectList.as_view()),
+    path('api/profile/', views.ProfileList.as_view()),
 
 ]
