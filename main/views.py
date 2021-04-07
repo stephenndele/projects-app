@@ -8,6 +8,10 @@ from .forms import ProfileForm, UserForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProjectSerializer
+
 # Create your views here.
 
 
@@ -231,3 +235,8 @@ def userpage(request,):
 
 
 
+class ProjectList(APIView):
+    def get(self, request, format=None):
+        all_projects = Project.objects.all()
+        serializers = ProjectSerializer(all_projects, many=True)
+        return Response(serializers.data)

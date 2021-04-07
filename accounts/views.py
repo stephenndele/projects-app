@@ -3,6 +3,8 @@ from .forms import *
 from django.contrib.auth import authenticate, login, logout
 from main.email import send_welcome_email
 
+
+
 # Create your views here.
 def register(request):
     if request.method == 'POST':
