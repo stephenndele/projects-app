@@ -5,7 +5,7 @@
 # Description  
 This project allows users to post their projects for other users to rate according to design, usability and content 
 ##  Live Link  
- Click [View Site]()  to visit the site
+ Click [View Site](https://projects-awwards.herokuapp.com/)  to visit the site
   
 ## Screenshots 
 ##### Home page
