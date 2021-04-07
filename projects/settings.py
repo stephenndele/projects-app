@@ -91,7 +91,9 @@ if config('MODE')=="dev":
            'ENGINE': 'django.db.backends.postgresql_psycopg2',
            'NAME': config('DB_NAME'),
            'USER': config('DB_USER'),
-           'PASSWORD': config('DB_PASSWORD')
+           'PASSWORD': config('DB_PASSWORD'),
+           'HOST': config('DB_HOST'),
+           'PORT': '',
        }
        
    }
@@ -105,6 +107,7 @@ else:
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
 # Password validation
@@ -174,3 +177,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 django_heroku.settings(locals())
+
+

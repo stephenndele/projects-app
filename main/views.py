@@ -41,10 +41,6 @@ def details(request, id):
 
     average = (average1 + average2 + average3) / 3
 
-    # "usability_rating" , "content_rating"))
-    # ["design_rating__avg", "content_rating__avg", "content_rating__avg"]
-    # average = reviews.aggregate(Avg("design_rating"))["design_rating__avg"]
-    
     if average == None:
         average = 0
     average = round(average, 2)
