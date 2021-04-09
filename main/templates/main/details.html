@@ -32,7 +32,6 @@
             <h3 class="text-center">Project Reviews</h3>
             <form action="{% url 'main:add_review' project.id %}" method="POST" novalidate enctype="multipart/form-data">
                 {% csrf_token %}
-<<<<<<< HEAD
                 <label for="comment">Comment</label>
                 <textarea name="comment" id="comment" cols="30" rows="5" class="form-control"></textarea>
                 <h4 class="text-center">Ratings</h4>
@@ -40,13 +39,18 @@
                 <input type="rating"  id="rangeInput" name="rating" min="0" max="10" value="0" step="0.1" 
                 oninput="amount.value=rangeInput.value">
                 <output name="amount" id="amount" for="rangeInput" >0</output>
-=======
->>>>>>> development
+                <label for="rating">Usability</label>
+                <input type="rating"  id="rangeInput" name="rating" min="0" max="10" value="0" step="0.1" 
+                oninput="amount.value=rangeInput.value">
+                <output name="amount" id="amount" for="rangeInput" >0</output>
+                <label for="rating">Content</label>
+                <input type="rating"  id="rangeInput" name="rating" min="0" max="10" value="0" step="0.1" 
+                oninput="amount.value=rangeInput.value">
+                <output name="amount" id="amount" for="rangeInput" >0</output>
 
-                {% for field in rate_form %}
+                <!-- {% for field in rate_form %}
                 {% bootstrap_field field %}
-                {% endfor %}
-
+                {% endfor %} -->
                 <input type="submit" class="btn btn-danger" value="Save Review">
             </form>
         </div>
