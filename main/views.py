@@ -149,20 +149,20 @@ def add_review(request, id):
     if request.user.is_authenticated:
         project = Project.objects.get(id=id)
         if request.method == 'POST':
-            form = ReviewForm(request.POST or None)
-            if form.is_valid():
-                data = form.save(commit=False)
-                data.comment = request.POST['comment']
-                data.design_rating = request.POST['design_rating']
-                data.usability_rating = request.POST['usability_rating']
-                data.content_rating = request.POST['content_rating']
-                data.user = request.user
+            rate_form = ReviewForm(request.POST)
+            if rate_form.is_valid():
+                data = rate_form.save(commit=False)
+                # data.comment = request.POST['comment']
+                # data.design_rating = request.POST['design_rating']
+                # data.usability_rating = request.POST['usability_rating']
+                # data.content_rating = request.POST['content_rating']
+                data.user = request.user.profile
                 data.project = project
                 data.save()
                 return redirect("main:details", id)
         else:
-            form = ReviewForm()
-        return render(request, "main/details.html", {'form': form})
+            rate_form = ReviewForm()
+        return render(request, "main/details.html", {'rate_form': rate_form})
     else:
         return redirect("accounts:login")
 
