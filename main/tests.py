@@ -45,7 +45,7 @@ class ProjectTestClass(TestCase):
 class ReviewTestClass(TestCase):
 
     def setUp(self):
-        # Creating a new user and saving it
+        # Creating a new user 
         self.stephen= User(first_name = 'stephen', last_name ='ndele', email ='stephen@gmail.com')
         self.stephen.save_User()
 
