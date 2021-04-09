@@ -1,10 +1,10 @@
 from django import forms
 from .models import *
-<<<<<<< HEAD
+
 from .models import Profile, Project
-=======
-from .models import Profile, Project, Rating, RATE_CHOICES
->>>>>>> development
+
+from .models import Profile, Project, RATE_CHOICES
+
 from django.contrib.auth.forms import UserCreationForm
 
 
