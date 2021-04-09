@@ -1,5 +1,5 @@
 {% extends 'main/base.html' %}
-
+{% load bootstrap4 %}
 {% block content %}
 
 <div class="container">
@@ -30,8 +30,9 @@
     <div class="card">
         <div class="card-body">
             <h3 class="text-center">Project Reviews</h3>
-            <form action="{% url 'main:add_review' project.id %}" method="POST">
+            <form action="{% url 'main:add_review' project.id %}" method="POST" novalidate enctype="multipart/form-data">
                 {% csrf_token %}
+<<<<<<< HEAD
                 <label for="comment">Comment</label>
                 <textarea name="comment" id="comment" cols="30" rows="5" class="form-control"></textarea>
                 <h4 class="text-center">Ratings</h4>
@@ -39,17 +40,13 @@
                 <input type="rating"  id="rangeInput" name="rating" min="0" max="10" value="0" step="0.1" 
                 oninput="amount.value=rangeInput.value">
                 <output name="amount" id="amount" for="rangeInput" >0</output>
+=======
+>>>>>>> development
 
-                <label for="rating">Usability</label>
-                <input type="rating"  id="rangeInput" name="rating" min="0" max="10" value="0" step="0.1" 
-                oninput="amount.value=rangeInput.value">
-                <output name="amount" id="amount" for="rangeInput" >0</output>
+                {% for field in rate_form %}
+                {% bootstrap_field field %}
+                {% endfor %}
 
-                <label for="rating">Content</label>
-                <input type="rating"  id="rangeInput" name="rating" min="0" max="10" value="0" step="0.1" 
-                oninput="amount.value=rangeInput.value">
-                <output name="amount" id="amount" for="rangeInput" >0</output>
-                
                 <input type="submit" class="btn btn-danger" value="Save Review">
             </form>
         </div>
@@ -78,27 +75,5 @@
     
 </div>
 
-<!-- <div class="container">
-    <div class="row">
-        <div class="col-md-3">
-        <div class="col-md-6 d-flex flex-row mx-auto" style="margin-top:20%">
-            {% for rating in project.ratings.all %}
-            {% if forloop.counter is post.ratings.all.count %}
-            <div id="design">{{ rating.design_average}}<br>
-                <span class="rates">design</span>
-            </div>
-            <div id="usable" class="mx-auto">{{ rating.usability_average }}<br>
-                <span class="rates">usability</span>
-            </div>
-            <div id="contente">{{ rating.content_average }}<br>
-                <span class="rates">content</span>
-            </div>
-            {% endif %}
-            {% endfor %}
-        </div>
-        </div>
-    </div>
-</div>
- -->
 
 {% endblock %}

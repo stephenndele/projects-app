@@ -149,11 +149,17 @@ def add_review(request, id):
     if request.user.is_authenticated:
         project = Project.objects.get(id=id)
         if request.method == 'POST':
+<<<<<<< HEAD
             form = ReviewForm(request.POST or None)
             print(form.errors)
             print(form)
             if form.is_valid():
                 data = form.save(commit=False)
+=======
+            rate_form = ReviewForm(request.POST)
+            if rate_form.is_valid():
+                data = rate_form.save(commit=False)
+>>>>>>> development
                 # data.comment = request.POST['comment']
                 # data.design_rating = request.POST['design_rating']
                 # data.usability_rating = request.POST['usability_rating']
@@ -163,8 +169,13 @@ def add_review(request, id):
                 data.save()
                 return redirect("main:details", id)
         else:
+<<<<<<< HEAD
             form = ReviewForm()
         return render(request, "main/details.html", {'form': form, "project":project})
+=======
+            rate_form = ReviewForm()
+        return render(request, "main/details.html", {'rate_form': rate_form})
+>>>>>>> development
     else:
         return redirect("accounts:login")
 def edit_review(request, project_id, review_id):

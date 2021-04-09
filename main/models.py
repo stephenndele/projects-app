@@ -23,18 +23,37 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
-
+RATE_CHOICES = [
+    (1, '1'),
+    (2, '2'),
+    (3, '3'),
+    (4, '4'),
+    (5, '5'),
+    (6, '6'),
+    (7, '7'),
+    (8, '8'),
+    (9, '9'),
+    (10, '10'),
+]
 class Review(models.Model):
+<<<<<<< HEAD
     project = models.ForeignKey('Project', on_delete=models.CASCADE, related_name="review")
     user = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name="review")
     comment = models.TextField(max_length=1000, null=True, blank=True)
     design_rating = models.FloatField(null=True, blank=True)
     usability_rating = models.FloatField(null=True, blank=True)
     content_rating = models.FloatField(null=True, blank=True)
+=======
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.TextField(max_length=1000)
+    design_rating = models.FloatField(default=0,choices = RATE_CHOICES )
+    usability_rating = models.FloatField(default=0,choices = RATE_CHOICES )
+    content_rating = models.FloatField(default=0,choices = RATE_CHOICES )
+>>>>>>> development
 
     def __str__(self):
         return f'{self.user.bio} Project'
-
 
 class Profile(models.Model):  
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
